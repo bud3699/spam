@@ -300,6 +300,7 @@
             if (messageTimestamp > lastDisplayedTimestamp && !message.content.includes("boyfriend")) {
                 var messageDiv = document.createElement("div");
                 messageDiv.className = "message";
+                messageDiv.id = `${message.id}`;
 
                 if (message.author === "Lauren") {
                     messageDiv.style.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
