@@ -71,7 +71,7 @@
                     feel free to dm me an avatar for me to add onto the podium. I created this so my actual leave me a
                     me
                     message didnt get clogged
-                    with spam messages of people trying to get first place. soooo. Go nuts everyone :)</label><br>
+                    with spam messages of people trying to get first place. soooo. Go nuts everyone :)<br></label><br>
                 <input type="text" id="username" name="username" oninput="adjustInput(this)"
                     placeholder="Username here"><br>
                 <input type="text" id="message" name="message" oninput="adjustInput(this)"
@@ -277,7 +277,7 @@
         url += "?t=" + new Date().getTime();
 
         fetch(corsProxy + url)
-            .then(response => response.text()) 
+            .then(response => response.text())
             .then(data => {
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
@@ -286,7 +286,7 @@
             .catch(error => console.error('Error fetching messages:', error));
     }
 
-    var lastDisplayedTimestamp = 0; 
+    var lastDisplayedTimestamp = 0;
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
@@ -328,13 +328,37 @@
                     messageDiv.style.color = "black";
                 }
 
-                
+
+                var authorDiv = document.createElement("div");
+                authorDiv.className = "author";
+
+                switch (message.author) {
+                    case "chisenoa":
+                        var authorLink = document.createElement("a");
+                        authorLink.href = "https://mindlabor.dev/"; 
+                        authorLink.textContent = message.author;
+                        authorDiv.appendChild(authorLink);
+                        break;
+                    case "MikeTheTech":
+                        var authorLink = document.createElement("a");
+                        authorLink.href = "https://mikethetech.com/"; 
+                        authorLink.textContent = message.author;
+                        authorDiv.appendChild(authorLink);
+                        break;
+
+                    default:
+                        authorDiv.textContent = message.author;
+                }
+
+                messageDiv.appendChild(authorDiv);
 
 
+                /*
                 var authorDiv = document.createElement("div");
                 authorDiv.className = "author";
                 authorDiv.textContent = message.author;
                 messageDiv.appendChild(authorDiv);
+                */
 
                 var contentDiv = document.createElement("div");
                 contentDiv.className = "content";

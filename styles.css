@@ -876,3 +876,12 @@ ul {
 .message {
     animation: slideDown 0.5s ease-out forwards;
 }
+
+.author a {
+    color: black;
+    text-decoration: underline; 
+}
+
+.author a:hover {
+    color: #ccc;
+}
