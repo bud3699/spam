@@ -707,12 +707,10 @@ ul {
     text-align: center;
 }
 
-/* Add a hover effect to the rows */
 #leaderboard tr:not(:first-child):hover {
     background-color: #f5f5f5;
 }
 
-/* Add some padding and center the text in the first column (position) */
 #leaderboard tr td:first-child {
     padding-right: 20px;
     text-align: center;

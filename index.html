@@ -60,14 +60,6 @@
             </a>
         </div>
 
-
-
-
-
-
-
-
-
         <div class="aboutme">
             <form id="discordForm">
                 <h1> LEADERBOARD </h1>
@@ -92,7 +84,6 @@
             <div class="place" id="second"></div>
             <div class="place" id="third"></div>
         </div>
-        <!-- New div for the full leaderboard list -->
         <div id="leaderboardList">
             <h2>Leaderboard</h2>
             <table>
@@ -218,7 +209,6 @@
 
 
 
-                // Assuming 'entries' is sorted by score in descending order
                 var leaderboardEntries = document.getElementById("leaderboardEntries");
                 leaderboardEntries.innerHTML = '';
                 var previousScore = null;
@@ -287,7 +277,7 @@
         url += "?t=" + new Date().getTime();
 
         fetch(corsProxy + url)
-            .then(response => response.text()) // Fetch as text first
+            .then(response => response.text()) 
             .then(data => {
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
@@ -296,19 +286,18 @@
             .catch(error => console.error('Error fetching messages:', error));
     }
 
-    var lastDisplayedTimestamp = 0; // This will keep track of the last displayed message timestamp
+    var lastDisplayedTimestamp = 0; 
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
 
-        // Sort messages by timestamp in ascending order
+
         messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
         messages.forEach(message => {
             var messageTimestamp = new Date(message.timestamp).getTime();
 
-            // Check if the message is new by comparing timestamps
-            if (messageTimestamp > lastDisplayedTimestamp) {
+            if (messageTimestamp > lastDisplayedTimestamp && !message.content.includes("boyfriend")) {
                 var messageDiv = document.createElement("div");
                 messageDiv.className = "message";
 
@@ -327,14 +316,13 @@
                 timestampDiv.textContent = formatTimestamp(message.timestamp);
                 messageDiv.appendChild(timestampDiv);
 
-                // Prepend the new message
                 messageEntries.insertBefore(messageDiv, messageEntries.firstChild);
 
-                // Update the last displayed timestamp
                 lastDisplayedTimestamp = messageTimestamp;
             }
         });
     }
+
 
 
 
