@@ -820,7 +820,7 @@ ul {
     border: 1px solid #ccc;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    background-color: rgba(21,21,22,1);
+    background-color: rgba(21, 21, 22, 1);
     color: white;
 }
 
@@ -851,8 +851,8 @@ ul {
 }
 
 #aboutme .Messagesclass {
-    max-width: 100%; 
-    box-sizing: border-box; 
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 #aboutme .Messagesclass {
@@ -867,6 +867,7 @@ ul {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -879,9 +880,44 @@ ul {
 
 .author a {
     color: black;
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 .author a:hover {
     color: #ccc;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 10px 0;
+}
+
+
+img#imagePreview {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px; 
+    vertical-align: middle;
 }
