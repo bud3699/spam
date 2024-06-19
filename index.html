@@ -122,8 +122,14 @@
                 <tbody id="leaderboardEntries"></tbody>
             </table>
         </div>
-
+        <div class="MessagesClass">
+            <div id="messageList">
+                <h2>Pinned Messages</h2>
+                <div id="messageEntriesPinned"></div>
+            </div>
+        </div>
         <div class="Messagesclass">
+
             <div id="messageList">
                 <h2>Messages</h2>
                 <div id="messageEntries"></div>
@@ -341,6 +347,7 @@
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
+        var messageEntriesPinned = document.getElementById("messageEntriesPinned")
 
 
         messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -372,7 +379,25 @@
                     messageDiv.style.color = "black";
                 }
                 if (message.author === "polinka") {
-                    messageDiv.style.backgroundImage = "linear-gradient(to right, #FFA3D7, #FFC6E6)";
+                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFA3D7, #FFC6E6)";
+
+                    /*
+                    messageDiv.style.position = "relative";
+                    messageDiv.style.overflow = "hidden"; 
+                    messageDiv.style.zIndex = "1"; 
+
+                    const dots = document.createElement("div");
+                    dots.style.content = '""';
+                    dots.style.position = "absolute";
+                    dots.style.top = "0";
+                    dots.style.left = "0";
+                    dots.style.width = "100%";
+                    dots.style.height = "100%";
+                    dots.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10%)";
+                    dots.style.backgroundSize = "10px 10px";
+
+                    messageDiv.appendChild(dots);
+                    */
                     messageDiv.style.color = "#9E2168";
                     messageDiv.style.fontStyle = "italic";
                     messageDiv.style.fontFamily = "'Fuzzy Bubbles', sans-serif";
@@ -427,7 +452,17 @@
                 timestampDiv.textContent = formatTimestamp(message.timestamp);
                 messageDiv.appendChild(timestampDiv);
 
-                messageEntries.insertBefore(messageDiv, messageEntries.firstChild);
+
+                if (message.reactions.some(reaction => reaction === "\ud83d\udccc")) {
+
+                    messageEntriesPinned.appendChild(messageDiv);
+
+                    console.log(message.reactions);
+
+                } else {
+                    messageEntries.insertBefore(messageDiv, messageEntries.firstChild);
+                }
+
 
                 lastDisplayedTimestamp = messageTimestamp;
             }
