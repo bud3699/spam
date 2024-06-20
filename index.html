@@ -234,6 +234,12 @@
 
         .loading-overlay-message.fade-out {
             opacity: 0;
+
+        }
+
+        .loading-overlay-message.faded-out {
+            opacity: 0;
+            display: none;
         }
 
         .loadanyway {
@@ -243,7 +249,7 @@
             font-size: 16px;
             padding: 10px 20px;
             border-radius: 8px;
-            background-color: rgba(21,21,22,1);
+            background-color: rgba(21, 21, 22, 1);
             color: white;
             border: none;
             cursor: pointer;
@@ -381,6 +387,9 @@
         if (confirm('Messages may still be loading!')) {
             const overlay = document.querySelector('.loading-overlay-message');
             overlay.classList.add('fade-out');
+            setTimeout(() => {
+                overlay.classList.add('faded-out');
+            }, 501);
         }
     }
 
@@ -745,6 +754,9 @@
                 if (index === messages.length - 1) {
                     const overlay = document.querySelector('.loading-overlay-message');
                     overlay.classList.add('fade-out');
+                    setTimeout(() => {
+                        overlay.classList.add('faded-out');
+                    }, 501);
                 }
 
             }, index * 5);
