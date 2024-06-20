@@ -857,6 +857,7 @@
     });
 
     function sendWebhook(webhookUrl, formData) {
+        document.getElementById('message').value = '';
         let requestOptions = {
             method: 'POST',
             body: formData
@@ -867,7 +868,6 @@
             .then(response => {
                 if (response.ok) {
                     console.log('Message sent!');
-                    document.getElementById('message').value = '';
                 } else {
                     console.error('Failed to send message:', response);
                 }
