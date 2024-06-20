@@ -8,6 +8,12 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
 
+        @font-face {
+            font-family: 'Dingbat';
+            src: url('BuDingbatsSansPurpose-njmY.ttf') format('truetype');
+        }
+
+
         .fuzzy-bubbles-regular {
             font-family: "Fuzzy Bubbles", sans-serif;
             font-weight: 400;
@@ -409,6 +415,11 @@
                 if (message.author === "17 ON TOP !") {
                     messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFD7D7, #FFFFFF)";
                     messageDiv.style.color = "black";
+                }
+                if (message.author === "kamil") {
+                    messageDiv.style.backgroundImage = "linear-gradient(45deg, #3c006e, #000000,#80146e)";
+                    messageDiv.style.fontFamily = "'Dingbat', sans-serif";
+                    messageDiv.style.color = "white";
                 }
 
 
