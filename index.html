@@ -507,6 +507,12 @@
                     pfpImg.src = "https://cdn.discordapp.com/avatars/549421814858645515/cfa43a178bfcff3a38fae0f926ba719e?size=1024";
                     pfpImg.alt = `${message.author}'s profile picture`;
                     authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                } else if (message.id === "1252406394347327492") {
+                    var pfpImg = document.createElement("img");
+                    pfpImg.className = "profile-picture";
+                    pfpImg.src = "https://static.wixstatic.com/media/6bfb3b_10f9e56824ac482495a7000825a14d87~mv2.gif";
+                    pfpImg.alt = `${message.author}'s profile picture`;
+                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
                 } else if (message.pfp !== 'none') {
                     var pfpImg = document.createElement("img");
                     pfpImg.className = "profile-picture";
