@@ -87,9 +87,9 @@ body {
     background-color: #222;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    transform: translateX(200%);
+    /*transform: translateX(200%);
     animation: slideIn 2s ease-in-out forwards;
-    animation-delay: 3s;
+    animation-delay: 3s;*/
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -921,3 +921,4 @@ input[type="file"] {
     margin-right: 10px; 
     vertical-align: middle;
 }
+
