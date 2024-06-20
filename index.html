@@ -11,6 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+TAS:wght@100..400&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
 
+        
 
         @font-face {
             font-family: 'Dingbat';
@@ -26,6 +27,11 @@
             font-family: 'Chalky';
             src: url('Chalky-1jDeZ.ttf') format('truetype');
         }
+        @font-face {
+            font-family: 'C64';
+            src: url('C64_Pro-STYLE.ttf') format('truetype');
+        }
+
 
 
         
@@ -391,7 +397,10 @@
                     messageDiv.style.fontFamily = "'Playwrite AU TAS', cursive";
                 }
                 if (message.author === "MikeTheTech") {
-                    messageDiv.style.backgroundColor = "#23bc6a";
+                    messageDiv.style.backgroundColor = "";
+                    messageDiv.style.backgroundImage = "linear-gradient(to right,black, #23bc6a, black)";
+                    messageDiv.style.fontFamily = "'C64', cursive";
+                    messageDiv.style.fontSize = "15px"
                 }
                 if (message.id === "1252406394347327492") {
                     //messageDiv.style.backgroundColor = "#c12424";
@@ -484,6 +493,8 @@
                         var authorLink = document.createElement("a");
                         authorLink.href = "https://mikethetech.com/";
                         authorLink.textContent = message.author;
+                        authorLink.style.color = "grey";
+                        authorLink.style.textDecoration = "none";
                         authorDiv.appendChild(authorLink);
                         break;
 
