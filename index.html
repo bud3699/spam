@@ -443,20 +443,20 @@
                     default:
                         authorDiv.textContent = message.author;
                 }
-                if (message.pfp !== 'none') {
-                    var pfpImg = document.createElement("img");
-                    pfpImg.className = "profile-picture";
-                    pfpImg.src = message.pfp;
-                    pfpImg.alt = `${message.author}'s profile picture`;
-                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                }
                 if (message.author === "kamil") {
                     var pfpImg = document.createElement("img");
                     pfpImg.className = "profile-picture";
                     pfpImg.src = "https://cdn.discordapp.com/avatars/1252307627099295805/4e419bde9812560999da4088c5ac60ab.png?size=1024";
                     pfpImg.alt = `${message.author}'s profile picture`;
                     authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                } else if (message.pfp !== 'none') {
+                    var pfpImg = document.createElement("img");
+                    pfpImg.className = "profile-picture";
+                    pfpImg.src = message.pfp;
+                    pfpImg.alt = `${message.author}'s profile picture`;
+                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
                 }
+
 
                 messageDiv.appendChild(authorDiv);
 
