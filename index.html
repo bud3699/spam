@@ -7,6 +7,8 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
 
         @font-face {
             font-family: 'Dingbat';
@@ -421,6 +423,11 @@
                     messageDiv.style.fontFamily = "'Dingbat', sans-serif";
                     messageDiv.style.color = "white";
                 }
+                if (message.author === "Thae") {
+                    messageDiv.style.backgroundImage = "linear-gradient(45deg, #8294b4, #000000,#00097a)";
+                    messageDiv.style.color = "white";
+                    messageDiv.style.fontFamily = "'Cinzel', serif";
+                }
 
 
                 var authorDiv = document.createElement("div");
@@ -449,7 +456,13 @@
                     pfpImg.src = "https://cdn.discordapp.com/avatars/622952747309989918/b51eb8f6a544010a94ada0330b105bd1?size=1024";
                     pfpImg.alt = `${message.author}'s profile picture`;
                     authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                } else if (message.pfp !== 'none') {
+                } else if (message.id === "1253107303654359202") {
+                    var pfpImg = document.createElement("img");
+                    pfpImg.className = "profile-picture";
+                    pfpImg.src = "https://cdn.discordapp.com/avatars/549421814858645515/cfa43a178bfcff3a38fae0f926ba719e?size=1024";
+                    pfpImg.alt = `${message.author}'s profile picture`;
+                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                }else if (message.pfp !== 'none') {
                     var pfpImg = document.createElement("img");
                     pfpImg.className = "profile-picture";
                     pfpImg.src = message.pfp;
