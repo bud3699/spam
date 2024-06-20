@@ -9,12 +9,28 @@
         @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+TAS:wght@100..400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
 
 
         @font-face {
             font-family: 'Dingbat';
             src: url('BuDingbatsSansPurpose-njmY.ttf') format('truetype');
         }
+
+        @font-face {
+            font-family: 'Starry';
+            src: url('starrynight.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Chalky';
+            src: url('Chalky-1jDeZ.ttf') format('truetype');
+        }
+
+
+        
+
+        
 
 
         .fuzzy-bubbles-regular {
@@ -377,8 +393,30 @@
                 if (message.author === "MikeTheTech") {
                     messageDiv.style.backgroundColor = "#23bc6a";
                 }
-                if (message.author === "budtholomew") {
-                    messageDiv.style.backgroundColor = "#c12424";
+                if (message.id === "1252406394347327492") {
+                    //messageDiv.style.backgroundColor = "#c12424";
+                    //messageDiv.style.backgroundColor = "#101027";
+                    messageDiv.style.fontFamily = "'Chalky', cursive";
+                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, black, #0c1445, #38285c)";
+
+                    messageDiv.style.position = "relative";
+                    messageDiv.style.overflow = "hidden";
+                    messageDiv.style.zIndex = "1";
+
+                    const dots = document.createElement("div");
+                    dots.style.content = '""';
+                    dots.style.position = "absolute";
+                    dots.style.top = "0";
+                    dots.style.left = "0";
+                    dots.style.width = "100%";
+                    dots.style.height = "100%";
+                    dots.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
+                    dots.style.backgroundSize = "100px 100px";
+
+                    messageDiv.appendChild(dots);
+                    //messageDiv.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
+
+
                 }
                 if (message.author === "mai c:") {
                     messageDiv.style.backgroundImage = "linear-gradient(to bottom, #f0b9d0, #faebc3, #fcb95b)";
@@ -452,6 +490,11 @@
                     default:
                         authorDiv.textContent = message.author;
                 }
+                if (message.id === "1252406394347327492") {
+                    authorDiv.style.zIndex = "2";
+                }
+
+
                 if (message.author === "kamil") {
                     var pfpImg = document.createElement("img");
                     pfpImg.className = "profile-picture";
@@ -464,7 +507,7 @@
                     pfpImg.src = "https://cdn.discordapp.com/avatars/549421814858645515/cfa43a178bfcff3a38fae0f926ba719e?size=1024";
                     pfpImg.alt = `${message.author}'s profile picture`;
                     authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                }else if (message.pfp !== 'none') {
+                } else if (message.pfp !== 'none') {
                     var pfpImg = document.createElement("img");
                     pfpImg.className = "profile-picture";
                     pfpImg.src = message.pfp;
@@ -476,11 +519,19 @@
                 messageDiv.appendChild(authorDiv);
 
                 var contentDiv = document.createElement("div");
+                if (message.id === "1252406394347327492") {
+                    contentDiv.style.zIndex = "2";
+                }
+
                 contentDiv.className = "content";
                 contentDiv.textContent = message.content;
                 messageDiv.appendChild(contentDiv);
 
                 var timestampDiv = document.createElement("div");
+                if (message.id === "1252406394347327492") {
+                    timestampDiv.style.zIndex = "2";
+                }
+
                 timestampDiv.className = "timestamp";
                 timestampDiv.textContent = formatTimestamp(message.timestamp);
                 messageDiv.appendChild(timestampDiv);
