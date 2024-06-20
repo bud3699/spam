@@ -399,199 +399,202 @@
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
-        var messageEntriesPinned = document.getElementById("messageEntriesPinned")
-
+        var messageEntriesPinned = document.getElementById("messageEntriesPinned");
 
         messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-        messages.forEach(message => {
-            var messageTimestamp = new Date(message.timestamp).getTime();
+        messages.forEach((message, index) => {
+            setTimeout(() => {
+                var messageTimestamp = new Date(message.timestamp).getTime();
 
-            if (messageTimestamp > lastDisplayedTimestamp && !message.content.includes("boyfriend")) {
-                var messageDiv = document.createElement("div");
-                messageDiv.className = "message";
-                messageDiv.id = `${message.id}`;
+                if (messageTimestamp > lastDisplayedTimestamp && !message.content.includes("boyfriend")) {
+                    var messageDiv = document.createElement("div");
+                    messageDiv.className = "message";
+                    messageDiv.id = `${message.id}`;
 
-                if (message.author === "Lauren") {
-                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
-                    messageDiv.style.color = "black";
-                    messageDiv.style.fontFamily = "'Playwrite AU TAS', cursive";
+                    if (message.author === "Lauren") {
+                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
+                        messageDiv.style.color = "black";
+                        messageDiv.style.fontFamily = "'Playwrite AU TAS', cursive";
+                    }
+                    if (message.author === "MikeTheTech") {
+                        messageDiv.style.backgroundColor = "";
+                        messageDiv.style.backgroundImage = "linear-gradient(to right,black, #23bc6a, black)";
+                        messageDiv.style.fontFamily = "'C64', cursive";
+                        messageDiv.style.fontSize = "15px"
+                    }
+                    if (message.id === "1252406394347327492") {
+                        //messageDiv.style.backgroundColor = "#c12424";
+                        //messageDiv.style.backgroundColor = "#101027";
+                        messageDiv.style.fontFamily = "'Chalky', cursive";
+                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, black, #0c1445, #38285c)";
+
+                        messageDiv.style.position = "relative";
+                        messageDiv.style.overflow = "hidden";
+                        messageDiv.style.zIndex = "1";
+
+                        const dots = document.createElement("div");
+                        dots.style.content = '""';
+                        dots.style.position = "absolute";
+                        dots.style.top = "0";
+                        dots.style.left = "0";
+                        dots.style.width = "100%";
+                        dots.style.height = "100%";
+                        dots.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
+                        dots.style.backgroundSize = "100px 100px";
+
+                        messageDiv.appendChild(dots);
+                        //messageDiv.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
+
+
+                    }
+                    if (message.author === "mai c:") {
+                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #f0b9d0, #faebc3, #fcb95b)";
+                        messageDiv.style.color = "black";
+                    }
+                    if (message.author === "chisenoa") {
+                        messageDiv.style.backgroundColor = "#c58cff";
+                        messageDiv.style.color = "black";
+                    }
+                    if (message.author === "polinka") {
+                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFA3D7, #FFC6E6)";
+
+                        /*
+                        messageDiv.style.position = "relative";
+                        messageDiv.style.overflow = "hidden"; 
+                        messageDiv.style.zIndex = "1"; 
+    
+                        const dots = document.createElement("div");
+                        dots.style.content = '""';
+                        dots.style.position = "absolute";
+                        dots.style.top = "0";
+                        dots.style.left = "0";
+                        dots.style.width = "100%";
+                        dots.style.height = "100%";
+                        dots.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10%)";
+                        dots.style.backgroundSize = "10px 10px";
+    
+                        messageDiv.appendChild(dots);
+                        */
+                        messageDiv.style.color = "#9E2168";
+                        messageDiv.style.fontStyle = "italic";
+                        messageDiv.style.fontFamily = "'Fuzzy Bubbles', sans-serif";
+                    }
+                    if (message.author === "polyleftene") {
+                        messageDiv.style.backgroundColor = "#FDC443";
+                        messageDiv.style.color = "black";
+                    }
+                    if (message.author === "17 ON TOP !") {
+                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFD7D7, #FFFFFF)";
+                        messageDiv.style.color = "black";
+                    }
+                    if (message.author === "kamil") {
+                        messageDiv.style.backgroundImage = "linear-gradient(-45deg, #3c006e, #000000,#80146e)";
+                        messageDiv.style.fontFamily = "'Dingbat', sans-serif";
+                        messageDiv.style.color = "white";
+                    }
+                    if (message.author === "Thae") {
+                        messageDiv.style.backgroundImage = "linear-gradient(45deg, #8294b4, #000000,#00097a)";
+                        messageDiv.style.color = "white";
+                        messageDiv.style.fontFamily = "'Cinzel', serif";
+                    }
+
+
+                    var authorDiv = document.createElement("div");
+                    authorDiv.className = "author";
+
+                    switch (message.author) {
+                        case "chisenoa":
+                            var authorLink = document.createElement("a");
+                            authorLink.href = "https://mindlabor.dev/";
+                            authorLink.textContent = message.author;
+                            authorDiv.appendChild(authorLink);
+                            break;
+                        case "MikeTheTech":
+                            var authorLink = document.createElement("a");
+                            authorLink.href = "https://mikethetech.com/";
+                            authorLink.textContent = message.author;
+                            authorLink.style.color = "grey";
+                            authorLink.style.textDecoration = "none";
+                            authorDiv.appendChild(authorLink);
+                            break;
+
+                        default:
+                            authorDiv.textContent = message.author;
+                    }
+                    if (message.id === "1252406394347327492") {
+                        authorDiv.style.zIndex = "2";
+                    }
+
+
+                    if (message.author === "kamil") {
+                        var pfpImg = document.createElement("img");
+                        pfpImg.className = "profile-picture";
+                        pfpImg.src = "https://cdn.discordapp.com/avatars/622952747309989918/b51eb8f6a544010a94ada0330b105bd1?size=1024";
+                        pfpImg.alt = `${message.author}'s profile picture`;
+                        authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                    } else if (message.id === "1253107303654359202") {
+                        var pfpImg = document.createElement("img");
+                        pfpImg.className = "profile-picture";
+                        pfpImg.src = "https://cdn.discordapp.com/avatars/549421814858645515/cfa43a178bfcff3a38fae0f926ba719e?size=1024";
+                        pfpImg.alt = `${message.author}'s profile picture`;
+                        authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                    } else if (message.id === "1252406394347327492") {
+                        var pfpImg = document.createElement("img");
+                        pfpImg.className = "profile-picture";
+                        pfpImg.src = "https://static.wixstatic.com/media/6bfb3b_10f9e56824ac482495a7000825a14d87~mv2.gif";
+                        pfpImg.alt = `${message.author}'s profile picture`;
+                        authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                    } else if (message.pfp !== 'none') {
+                        var pfpImg = document.createElement("img");
+                        pfpImg.className = "profile-picture";
+                        pfpImg.src = message.pfp;
+                        pfpImg.alt = `${message.author}'s profile picture`;
+                        authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
+                    }
+
+
+                    messageDiv.appendChild(authorDiv);
+
+                    var contentDiv = document.createElement("div");
+                    if (message.id === "1252406394347327492") {
+                        contentDiv.style.zIndex = "2";
+                    } else if (message.author === "MikeTheTech") {
+                        contentDiv.style.margin = "10px"
+                    }
+
+                    contentDiv.className = "content";
+                    contentDiv.textContent = message.content;
+                    messageDiv.appendChild(contentDiv);
+
+                    var timestampDiv = document.createElement("div");
+                    if (message.id === "1252406394347327492") {
+                        timestampDiv.style.zIndex = "2";
+                    }
+
+                    timestampDiv.className = "timestamp";
+                    timestampDiv.textContent = formatTimestamp(message.timestamp);
+                    messageDiv.appendChild(timestampDiv);
+
+
+                    if (message.reactions.some(reaction => reaction === "\ud83d\udccc")) {
+
+                        messageEntriesPinned.appendChild(messageDiv);
+
+                        console.log(message.reactions);
+
+                    } else {
+                        messageEntries.insertBefore(messageDiv, messageEntries.firstChild);
+                    }
+
+
+                    lastDisplayedTimestamp = messageTimestamp;
                 }
-                if (message.author === "MikeTheTech") {
-                    messageDiv.style.backgroundColor = "";
-                    messageDiv.style.backgroundImage = "linear-gradient(to right,black, #23bc6a, black)";
-                    messageDiv.style.fontFamily = "'C64', cursive";
-                    messageDiv.style.fontSize = "15px"
-                }
-                if (message.id === "1252406394347327492") {
-                    //messageDiv.style.backgroundColor = "#c12424";
-                    //messageDiv.style.backgroundColor = "#101027";
-                    messageDiv.style.fontFamily = "'Chalky', cursive";
-                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, black, #0c1445, #38285c)";
 
-                    messageDiv.style.position = "relative";
-                    messageDiv.style.overflow = "hidden";
-                    messageDiv.style.zIndex = "1";
-
-                    const dots = document.createElement("div");
-                    dots.style.content = '""';
-                    dots.style.position = "absolute";
-                    dots.style.top = "0";
-                    dots.style.left = "0";
-                    dots.style.width = "100%";
-                    dots.style.height = "100%";
-                    dots.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
-                    dots.style.backgroundSize = "100px 100px";
-
-                    messageDiv.appendChild(dots);
-                    //messageDiv.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
-
-
-                }
-                if (message.author === "mai c:") {
-                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, #f0b9d0, #faebc3, #fcb95b)";
-                    messageDiv.style.color = "black";
-                }
-                if (message.author === "chisenoa") {
-                    messageDiv.style.backgroundColor = "#c58cff";
-                    messageDiv.style.color = "black";
-                }
-                if (message.author === "polinka") {
-                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFA3D7, #FFC6E6)";
-
-                    /*
-                    messageDiv.style.position = "relative";
-                    messageDiv.style.overflow = "hidden"; 
-                    messageDiv.style.zIndex = "1"; 
-
-                    const dots = document.createElement("div");
-                    dots.style.content = '""';
-                    dots.style.position = "absolute";
-                    dots.style.top = "0";
-                    dots.style.left = "0";
-                    dots.style.width = "100%";
-                    dots.style.height = "100%";
-                    dots.style.backgroundImage = "radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10%)";
-                    dots.style.backgroundSize = "10px 10px";
-
-                    messageDiv.appendChild(dots);
-                    */
-                    messageDiv.style.color = "#9E2168";
-                    messageDiv.style.fontStyle = "italic";
-                    messageDiv.style.fontFamily = "'Fuzzy Bubbles', sans-serif";
-                }
-                if (message.author === "polyleftene") {
-                    messageDiv.style.backgroundColor = "#FDC443";
-                    messageDiv.style.color = "black";
-                }
-                if (message.author === "17 ON TOP !") {
-                    messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFD7D7, #FFFFFF)";
-                    messageDiv.style.color = "black";
-                }
-                if (message.author === "kamil") {
-                    messageDiv.style.backgroundImage = "linear-gradient(-45deg, #3c006e, #000000,#80146e)";
-                    messageDiv.style.fontFamily = "'Dingbat', sans-serif";
-                    messageDiv.style.color = "white";
-                }
-                if (message.author === "Thae") {
-                    messageDiv.style.backgroundImage = "linear-gradient(45deg, #8294b4, #000000,#00097a)";
-                    messageDiv.style.color = "white";
-                    messageDiv.style.fontFamily = "'Cinzel', serif";
-                }
-
-
-                var authorDiv = document.createElement("div");
-                authorDiv.className = "author";
-
-                switch (message.author) {
-                    case "chisenoa":
-                        var authorLink = document.createElement("a");
-                        authorLink.href = "https://mindlabor.dev/";
-                        authorLink.textContent = message.author;
-                        authorDiv.appendChild(authorLink);
-                        break;
-                    case "MikeTheTech":
-                        var authorLink = document.createElement("a");
-                        authorLink.href = "https://mikethetech.com/";
-                        authorLink.textContent = message.author;
-                        authorLink.style.color = "grey";
-                        authorLink.style.textDecoration = "none";
-                        authorDiv.appendChild(authorLink);
-                        break;
-
-                    default:
-                        authorDiv.textContent = message.author;
-                }
-                if (message.id === "1252406394347327492") {
-                    authorDiv.style.zIndex = "2";
-                }
-
-
-                if (message.author === "kamil") {
-                    var pfpImg = document.createElement("img");
-                    pfpImg.className = "profile-picture";
-                    pfpImg.src = "https://cdn.discordapp.com/avatars/622952747309989918/b51eb8f6a544010a94ada0330b105bd1?size=1024";
-                    pfpImg.alt = `${message.author}'s profile picture`;
-                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                } else if (message.id === "1253107303654359202") {
-                    var pfpImg = document.createElement("img");
-                    pfpImg.className = "profile-picture";
-                    pfpImg.src = "https://cdn.discordapp.com/avatars/549421814858645515/cfa43a178bfcff3a38fae0f926ba719e?size=1024";
-                    pfpImg.alt = `${message.author}'s profile picture`;
-                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                } else if (message.id === "1252406394347327492") {
-                    var pfpImg = document.createElement("img");
-                    pfpImg.className = "profile-picture";
-                    pfpImg.src = "https://static.wixstatic.com/media/6bfb3b_10f9e56824ac482495a7000825a14d87~mv2.gif";
-                    pfpImg.alt = `${message.author}'s profile picture`;
-                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                } else if (message.pfp !== 'none') {
-                    var pfpImg = document.createElement("img");
-                    pfpImg.className = "profile-picture";
-                    pfpImg.src = message.pfp;
-                    pfpImg.alt = `${message.author}'s profile picture`;
-                    authorDiv.insertBefore(pfpImg, authorDiv.firstChild);
-                }
-
-
-                messageDiv.appendChild(authorDiv);
-
-                var contentDiv = document.createElement("div");
-                if (message.id === "1252406394347327492") {
-                    contentDiv.style.zIndex = "2";
-                } else if (message.author === "MikeTheTech") {
-                    contentDiv.style.margin = "10px"
-                }
-
-                contentDiv.className = "content";
-                contentDiv.textContent = message.content;
-                messageDiv.appendChild(contentDiv);
-
-                var timestampDiv = document.createElement("div");
-                if (message.id === "1252406394347327492") {
-                    timestampDiv.style.zIndex = "2";
-                }
-
-                timestampDiv.className = "timestamp";
-                timestampDiv.textContent = formatTimestamp(message.timestamp);
-                messageDiv.appendChild(timestampDiv);
-
-
-                if (message.reactions.some(reaction => reaction === "\ud83d\udccc")) {
-
-                    messageEntriesPinned.appendChild(messageDiv);
-
-                    console.log(message.reactions);
-
-                } else {
-                    messageEntries.insertBefore(messageDiv, messageEntries.firstChild);
-                }
-
-
-                lastDisplayedTimestamp = messageTimestamp;
-            }
+            }, index * 3);
         });
     }
+
 
 
 
