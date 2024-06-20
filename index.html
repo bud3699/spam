@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+TAS:wght@100..400&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
 
-        
+
 
         @font-face {
             font-family: 'Dingbat';
@@ -27,6 +27,7 @@
             font-family: 'Chalky';
             src: url('Chalky-1jDeZ.ttf') format('truetype');
         }
+
         @font-face {
             font-family: 'C64';
             src: url('C64_Pro-STYLE.ttf') format('truetype');
@@ -34,9 +35,9 @@
 
 
 
-        
 
-        
+
+
 
 
         .fuzzy-bubbles-regular {
@@ -95,6 +96,25 @@
         .avatarUpload {
             display: none;
         }
+
+
+        @keyframes rotateAndScale {
+            0% {
+                transform: rotate(10deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(-10deg) scale(1.2);
+            }
+
+            100% {
+                transform: rotate(10deg) scale(0.8);
+            }
+        }
+
+        #advert {
+            animation: rotateAndScale 4s infinite alternate;
+        }
     </style>
 </head>
 
@@ -132,6 +152,7 @@
                     placeholder="Username here"><br>
                 <input type="text" id="message" name="message" oninput="adjustInput(this)"
                     placeholder="Comment here"><br>
+                <h2 id="advert"> cool feature coming soon</h2>
                 <input type="submit" value="Send">
             </form>
         </div>
