@@ -473,7 +473,7 @@
         fetch(corsProxy + url)
             .then(response => response.json())
             .then(data => {
-                delete data["polinka"];
+                //delete data["polinka"];
                 var entries = Object.entries(data);
                 entries.sort((a, b) => b[1] - a[1]);
 
@@ -552,8 +552,8 @@
             .then(data => {
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
-                var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
-                displayMessages(filteredMessages);
+                //var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
+                displayMessages(parsedMessages);
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
@@ -658,6 +658,11 @@
                     }
                     if (message.author === "Thae") {
                         messageDiv.style.backgroundImage = "linear-gradient(45deg, #8294b4, #000000,#00097a)";
+                        messageDiv.style.color = "white";
+                        messageDiv.style.fontFamily = "'Cinzel', serif";
+                    }
+                    if (message.author === "Tayy") {
+                        messageDiv.style.backgroundImage = "linear-gradient(-45deg, #80146e, #000000,#3c006e)";
                         messageDiv.style.color = "white";
                         messageDiv.style.fontFamily = "'Cinzel', serif";
                     }
