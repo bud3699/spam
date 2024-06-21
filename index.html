@@ -473,8 +473,10 @@
         fetch(corsProxy + url)
             .then(response => response.json())
             .then(data => {
+                delete data["polinka"];
                 var entries = Object.entries(data);
                 entries.sort((a, b) => b[1] - a[1]);
+
 
 
 
@@ -550,7 +552,8 @@
             .then(data => {
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
-                displayMessages(parsedMessages);
+                var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
+                displayMessages(filteredMessages);
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
