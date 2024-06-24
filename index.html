@@ -854,7 +854,7 @@
         let message = document.getElementById('message').value;
         let style = document.getElementById('code').value;
         let avatarUpload = document.getElementById('avatarUpload').files[0];
-        let messageToSend = username + " !style=" + style + "!";
+        let messageToSend = message + " !style=" + style + "!";
 
         if (!username || !message) {
             alert('Please enter both a username and a message.');
