@@ -402,6 +402,30 @@ ul {
 #discordForm input[type="submit"]:hover {
     background-color: #939494;
 }
+#discordForm input[type="styles"] {
+    cursor: pointer;
+
+    color: black;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#discordForm input[type="styles"]:hover {
+    background-color: #939494;
+}
+#discordForm input[type="refresh"] {
+    cursor: pointer;
+
+    color: black;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#discordForm input[type="resfresh"]:hover {
+    background-color: #939494;
+}
 
 #discordForm input[type="file"] {
     display: inline-block;

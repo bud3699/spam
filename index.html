@@ -33,6 +33,11 @@
             src: url('C64_Pro-STYLE.ttf') format('truetype');
         }
 
+        @font-face {
+            font-family: 'polinka';
+            src: url('Pollys.ttf') format('truetype');
+        }
+
 
 
 
@@ -259,6 +264,7 @@
 </head>
 
 <body>
+
     <div class="loading-overlay-message">
         <div class="wrapper">
             <div class="circle"></div>
@@ -271,6 +277,7 @@
             <button class="loadanyway" onclick="loadAnyway()">Load Anyway</button>
         </div>
     </div>
+
     <div id="aboutme" class="container">
         <div style="position: relative; width: 100%; height: 100%;">
             <a href="https://bud.is-a.dev/" style="text-decoration: none; position: absolute; top: 0; left: 0;">
@@ -304,7 +311,26 @@
                     placeholder="Username here"><br>
                 <input type="text" id="message" name="message" oninput="adjustInput(this)"
                     placeholder="Comment here"><br>
-                <h2 id="advert"> cool feature coming soon</h2>
+                <input type="text" id="code" name="code" oninput="adjustInput(this)"
+                    placeholder="Enter your style code">
+                <div style="display: flex; justify-content: center;">
+                    <input type="styles" value="View Styles" readonly
+                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;"onclick="window.open('/spam/styles/', '_blank');">
+                    <input type="refresh" value="Refresh Styles" readonly
+                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;", onclick="fetchStyles();">
+                </div>
+
+                <!--<h2 id="advert"> cool feature coming soon</h2>-->
+                <div id="DisplayMessageContainer">
+                    <div class="message">
+                        <div class="author">
+                            <img class="profile-picture">
+                            Username
+                        </div>
+                        <div class="content">Message</div>
+                        <div class="timestamp">Time</div>
+                    </div>
+                </div>
                 <input type="submit" value="Send">
             </form>
         </div>
@@ -349,6 +375,9 @@
 
 </body>
 <script>
+
+    let allStyles = [];
+    fetchStyles();
 
 
     window.onload = function () {
@@ -408,11 +437,13 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+        updateMessage();
     }
 
 
 
     document.getElementById('avatarUpload').addEventListener('change', updateImagePreview);
+
 
 
     function getPodiumHeights() {
@@ -559,6 +590,7 @@
     }
 
     var lastDisplayedTimestamp = 0;
+    let MessageLimit = 5
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
@@ -575,17 +607,16 @@
                     messageDiv.className = "message";
                     messageDiv.id = `${message.id}`;
 
-                    if (message.author === "Lauren") {
-                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
-                        messageDiv.style.color = "black";
-                        messageDiv.style.fontFamily = "'Playwrite AU TAS', cursive";
-                    }
-                    if (message.author === "MikeTheTech") {
-                        messageDiv.style.backgroundColor = "";
-                        messageDiv.style.backgroundImage = "linear-gradient(to right,black, #23bc6a, black)";
-                        messageDiv.style.fontFamily = "'C64', cursive";
-                        messageDiv.style.fontSize = "15px"
-                    }
+
+                    let styleCodeMatch = message.content.match(/!style=(\w+)!$/);
+                    let styles = styleCodeMatch ? getStyleFromCode(styleCodeMatch[1]) : getAuthorStyles(message.author);
+
+                    if (styles.backgroundImage) messageDiv.style.backgroundImage = styles.backgroundImage;
+                    if (styles.backgroundColor) messageDiv.style.backgroundColor = styles.backgroundColor;
+                    if (styles.color) messageDiv.style.color = styles.color;
+                    if (styles.fontFamily) messageDiv.style.fontFamily = styles.fontFamily;
+                    if (styles.fontSize) messageDiv.style.fontSize = styles.fontSize;
+
                     if (message.id === "1252406394347327492") {
                         //messageDiv.style.backgroundColor = "#c12424";
                         //messageDiv.style.backgroundColor = "#101027";
@@ -610,15 +641,7 @@
                         //messageDiv.style.backgroundImage = "url('https://i.gifer.com/WG8P.gif')";
 
 
-                    }
-                    if (message.author === "mai c:") {
-                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #f0b9d0, #faebc3, #fcb95b)";
-                        messageDiv.style.color = "black";
-                    }
-                    if (message.author === "chisenoa") {
-                        messageDiv.style.backgroundColor = "#c58cff";
-                        messageDiv.style.color = "black";
-                    }
+                    }/*
                     if (message.author === "polinka") {
                         messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFA3D7, #FFC6E6)";
 
@@ -638,34 +661,12 @@
                         dots.style.backgroundSize = "10px 10px";
     
                         messageDiv.appendChild(dots);
-                        */
+                        
                         messageDiv.style.color = "#9E2168";
                         messageDiv.style.fontStyle = "italic";
                         messageDiv.style.fontFamily = "'Fuzzy Bubbles', sans-serif";
                     }
-                    if (message.author === "polyleftene") {
-                        messageDiv.style.backgroundColor = "#FDC443";
-                        messageDiv.style.color = "black";
-                    }
-                    if (message.author === "17 ON TOP !") {
-                        messageDiv.style.backgroundImage = "linear-gradient(to bottom, #FFD7D7, #FFFFFF)";
-                        messageDiv.style.color = "black";
-                    }
-                    if (message.author === "kamil") {
-                        messageDiv.style.backgroundImage = "linear-gradient(-45deg, #3c006e, #000000,#80146e)";
-                        messageDiv.style.fontFamily = "'Dingbat', sans-serif";
-                        messageDiv.style.color = "white";
-                    }
-                    if (message.author === "Thae") {
-                        messageDiv.style.backgroundImage = "linear-gradient(45deg, #8294b4, #000000,#00097a)";
-                        messageDiv.style.color = "white";
-                        messageDiv.style.fontFamily = "'Cinzel', serif";
-                    }
-                    if (message.author === "Tayy") {
-                        messageDiv.style.backgroundImage = "linear-gradient(-45deg, #80146e, #000000,#3c006e)";
-                        messageDiv.style.color = "white";
-                        messageDiv.style.fontFamily = "'Cinzel', serif";
-                    }
+                    */
 
 
                     var authorDiv = document.createElement("div");
@@ -732,7 +733,7 @@
                     }
 
                     contentDiv.className = "content";
-                    contentDiv.textContent = message.content;
+                    contentDiv.textContent = message.content.replace(/!style=\w+!$/, '');
                     messageDiv.appendChild(contentDiv);
 
                     var timestampDiv = document.createElement("div");
@@ -760,6 +761,7 @@
                 }
 
                 if (index === messages.length - 1) {
+                    MessageLimit = 1
                     const overlay = document.querySelector('.loading-overlay-message');
                     overlay.classList.add('fade-out');
                     setTimeout(() => {
@@ -767,9 +769,11 @@
                     }, 501);
                 }
 
-            }, index * 5);
+            }, index * MessageLimit);
 
         });
+
+        MessageLimit = 1
 
     }
 
@@ -825,6 +829,10 @@
         var pfpImg = document.getElementById('imagePreview');
         pfpImg.src = pfp;
     }
+    var messageStyle = localStorage.getItem('MessageStyle');
+    if (messageStyle) {
+        document.getElementById('code').value = messageStyle;
+    }
 
 
     function adjustInput(input) {
@@ -837,11 +845,16 @@
     //let webhookUrl = 'https://ptb.discord.com/api/webhooks/1252307627099295805/VnI0Msvi1_RrWRh4TjtHTVtwMfGeUjpj5kTmLCbfdVelV45tMffrPsejZ0wnXaKR72FV';
     let form = document.getElementById('discordForm');
 
+
+
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         let username = document.getElementById('username').value;
         let message = document.getElementById('message').value;
+        let style = document.getElementById('code').value;
         let avatarUpload = document.getElementById('avatarUpload').files[0];
+        let messageToSend = username + " !style=" + style + "!";
 
         if (!username || !message) {
             alert('Please enter both a username and a message.');
@@ -850,7 +863,7 @@
 
         let formData = new FormData();
         formData.append('username', username);
-        formData.append('content', message);
+        formData.append('content', messageToSend);
 
         let originalWebhookUrl = 'https://ptb.discord.com/api/webhooks/1252307627099295805/VnI0Msvi1_RrWRh4TjtHTVtwMfGeUjpj5kTmLCbfdVelV45tMffrPsejZ0wnXaKR72FV';
         let avatarWebhookUrl = 'https://ptb.discord.com/api/webhooks/1252769944983048315/hbKkofzYg7NLW9ou1b9t4AThyo8svkG1Opc8MPL57yHQJLOL8OTyxwJ7odoZd9BROR5x';
@@ -866,6 +879,7 @@
 
     function sendWebhook(webhookUrl, formData) {
         document.getElementById('message').value = '';
+        updateMessage()
         let requestOptions = {
             method: 'POST',
             body: formData
@@ -912,6 +926,196 @@
         for (var i = 0, len = files.length; i < len; i++) b.items.add(files[i]);
         return b.files;
     }
+
+
+    //Author Div Function
+
+    function getAuthorStyles(author) {
+        let styles = {
+            backgroundImage: '',
+            backgroundColor: '',
+            color: '',
+            fontFamily: '',
+            fontSize: ''
+        };
+
+        switch (author) {
+            case "Lauren":
+                styles.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
+                styles.color = "black";
+                styles.fontFamily = "'Playwrite AU TAS', cursive";
+                break;
+            case "MikeTheTech":
+                styles.backgroundImage = "linear-gradient(to right, black, #23bc6a, black)";
+                styles.fontFamily = "'C64', cursive";
+                styles.fontSize = "15px";
+                break;
+            case "mai c:":
+                styles.backgroundImage = "linear-gradient(to bottom, #f0b9d0, #faebc3, #fcb95b)";
+                styles.color = "black";
+                break;
+            case "chisenoa":
+                styles.backgroundColor = "#c58cff";
+                styles.color = "black";
+                break;
+            case "polinka":
+                styles.backgroundImage = "linear-gradient(to bottom, #FFA3D7, #FFC6E6)";
+                styles.color = "#9E2168";
+                styles.fontStyle = "italic";
+                styles.fontFamily = "'Fuzzy Bubbles', sans-serif";
+                break;
+            case "polyleftene":
+                styles.backgroundColor = "#FDC443";
+                styles.color = "black";
+                break;
+            case "17 ON TOP !":
+                styles.backgroundImage = "linear-gradient(to bottom, #FFD7D7, #FFFFFF)";
+                styles.color = "black";
+                break;
+            case "kamil":
+                styles.backgroundImage = "linear-gradient(-45deg, #3c006e, #000000, #80146e)";
+                styles.fontFamily = "'Dingbat', sans-serif";
+                styles.color = "white";
+                break;
+            case "Thae":
+                styles.backgroundImage = "linear-gradient(45deg, #8294b4, #000000, #00097a)";
+                styles.color = "white";
+                styles.fontFamily = "'Cinzel', serif";
+                break;
+            case "Tayy":
+                styles.backgroundImage = "linear-gradient(-45deg, #80146e, #000000, #3c006e)";
+                styles.color = "white";
+                styles.fontFamily = "'Cinzel', serif";
+                break;
+        }
+
+        return styles;
+    }
+
+    function applyStylesFromCode(code) {
+        let styles = {
+            backgroundImage: '',
+            backgroundColor: '',
+            color: '',
+            fontFamily: '',
+            fontSize: ''
+        };
+
+        switch (code) {
+            case "Style_id_1":
+                styles.backgroundImage = "linear-gradient(to bottom, #fbdffb, #d9ead3)";
+                styles.color = "black";
+                styles.fontFamily = "'Playwrite AU TAS', cursive";
+                break;
+            case "Style_id_2":
+                styles.backgroundImage = "linear-gradient(to right, black, #23bc6a, black)";
+                styles.fontFamily = "'C64', cursive";
+                styles.fontSize = "15px";
+                break;
+
+        }
+
+        return styles;
+    }
+
+    function getStyleFromCode(code) {
+        console.log('allStyles:', allStyles);
+        if (typeof allStyles !== 'object' || allStyles === null) {
+            console.error('allStyles is not an object');
+            return null;
+        }
+
+        const style = allStyles[code];
+        if (!style) {
+            console.warn(`No style found for code: ${code}`);
+            return null;
+        }
+
+        return {
+            backgroundImage: style.colors.length > 1 ? `linear-gradient(${style.gradientDirection}, ${style.colors.join(', ')})` : '',
+            backgroundColor: style.colors.length === 1 ? style.colors[0] : '',
+            color: style.fontColor,
+            fontFamily: style.fontFamily,
+            fontSize: style.fontSize || '' 
+        };
+    }
+
+
+
+
+
+    async function fetchStyles() {
+        const timestamp = new Date().getTime();
+        const url = `https://corsproxy.io/?${encodeURIComponent('http://budstesting.rf.gd/store/all_styles.json')}?t=${timestamp}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            allStyles = await response.json();
+
+            updateMessage()
+        } catch (error) {
+            console.error('Error fetching styles:', error);
+        }
+    }
+
+
+
+
+
+
+    const usernameInput = document.getElementById('username');
+    const messageInput = document.getElementById('message');
+    const styleInput = document.getElementById('code')
+    const messageContainers = document.getElementById('DisplayMessageContainer');
+
+
+
+    // Listen for input changes
+    usernameInput.addEventListener('input', updateMessage);
+    messageInput.addEventListener('input', updateMessage);
+    styleInput.addEventListener('input', updateMessage);
+
+    function updateMessage() {
+        const username = usernameInput.value || 'John/Jane Doe';
+        console.log(username);
+        const message = messageInput.value || 'Your message goes here';
+        const StyleCode = styleInput.value || 'NoStyleCode';
+
+        const storedImage = localStorage.getItem('pfp');
+        const profilePictureSrc = storedImage || '';
+
+        let styles;
+
+        if (StyleCode === 'NoStyleCode') {
+            styles = getAuthorStyles(username);
+            localStorage.setItem('MessageStyle', '');
+        } else {
+            styles = getStyleFromCode(StyleCode);
+            console.log(styles)
+            // styles = applyStylesFromCode(StyleCode) || 
+            localStorage.setItem('MessageStyle', StyleCode);
+        }
+
+        const messageHTML = `
+        <div class="message" style="animation: none; ${styles.backgroundImage ? `background-image: ${styles.backgroundImage};` : ''} ${styles.backgroundColor ? `background-color: ${styles.backgroundColor};` : ''} ${styles.color ? `color: ${styles.color};` : ''} ${styles.fontFamily ? `font-family: ${styles.fontFamily};` : ''} ${styles.fontSize ? `font-size: ${styles.fontSize};` : ''}">
+            <div class="author">
+                ${profilePictureSrc ? `<img class="profile-picture" src="${profilePictureSrc}">` : ''}
+                ${username}
+            </div>
+            <div class="content">${message.replace(/!style=\w+!$/, '')}</div>
+            <div class="timestamp">${new Date().toLocaleString()}</div>
+        </div>
+    `;
+
+        messageContainers.innerHTML = messageHTML;
+    }
+    //   */
+
+
+    updateMessage()
 
 </script>
 

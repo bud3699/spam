@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Messages</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+TAS:wght@100..400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
+
+
+
+        @font-face {
+            font-family: 'Dingbat';
+            src: url('BuDingbatsSansPurpose-njmY.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Starry';
+            src: url('starrynight.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Chalky';
+            src: url('Chalky-1jDeZ.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'C64';
+            src: url('C64_Pro-STYLE.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'polinka';
+            src: url('Pollys.ttf') format('truetype');
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: var(--container-bg-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .theme-selector {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .theme-button {
+            padding: 8px 16px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-button.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .theme-button.light {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .theme-button.pink {
+            background-color: #ff69b4;
+            color: #fff;
+        }
+
+        .theme-button.active {
+            font-weight: bold;
+        }
+
+
+
+        .search-bar,
+        .username-bar,
+        .content-bar {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .styles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .message-box {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+            word-wrap: break-word;
+        }
+
+        .theme-info {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            margin-bottom: 5px;
+            color: #888;
+        }
+
+        .createdby {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .author {
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: #666;
+            text-align: right;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .message-box {
+                padding: 8px;
+            }
+
+            .theme-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .theme-button {
+                margin: 5px;
+            }
+        }
+    </style>
+    <style>
+        :root {
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --container-bg-color: #fff;
+            --primary-color: white;
+            --secondary-color: grey;
+            --button-font-family: 'Montserrat', sans-serif;
+            --body-font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font-family);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: var(--container-bg-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--button-font-family);
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .theme-selector {
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .theme-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            font-family: var(--button-font-family);
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+
+        .theme-button.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .theme-button.light {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .theme-button.pink {
+            background-color: #ff69b4;
+            color: #fff;
+        }
+
+        .theme-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .theme-button.active {
+            font-weight: bold;
+        }
+
+        .create-styles-button {
+            padding: 12px 24px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            background-color: var(--primary-color);
+            color: black;
+            font-size: 18px;
+            font-family: var(--button-font-family);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .create-styles-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .search-bar,
+        .username-bar,
+        .content-bar {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus,
+        .username-bar:focus,
+        .content-bar:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .message-box {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            word-wrap: break-word;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        .message-box:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .theme-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            margin-bottom: 5px;
+            color: #888;
+        }
+
+        .createdby {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .message {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .author {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: #666;
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .message-box {
+                padding: 12px;
+            }
+
+
+
+            .theme-button {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Styled Messages</h1>
+
+        <div class="theme-selector">
+            <h2>Browser Theme</h2>
+            <button class="theme-button dark" onclick="setTheme('dark')">Dark</button>
+            <button class="theme-button light" onclick="setTheme('light')">Light</button>
+            <button class="theme-button pink" onclick="setTheme('pink')">Pink</button>
+        </div>
+
+        <button class="create-styles-button" onclick="window.location.href='/spam/styles/creator/'">Create
+            Styles</button>
+
+        <h2>Search</h2>
+        <input type="text" class="search-bar" placeholder="Search styles..." id="searchBar">
+        <h3>Input previews</h3>
+        <input type="text" class="username-bar" placeholder="Enter new author name..." id="usernameBar">
+        <textarea class="content-bar" placeholder="Content" id="contentBar"></textarea>
+        <h3>styles</h3>
+        <div class="styles-container" id="styles-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var url = "http://budstesting.rf.gd/store/all_styles.json";
+
+            var corsProxy = "https://corsproxy.io/?";
+
+            url += "?t=" + new Date().getTime();
+
+            // Load saved theme from local storage or set default
+            const savedTheme = localStorage.getItem('theme');
+            setTheme(savedTheme || 'light');
+
+            fetch(corsProxy + url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const stylesContainer = document.getElementById('styles-container');
+
+                    Object.keys(data).forEach(styleId => {
+                        const { title, description, username, content, colors, fontFamily, fontColor } = data[styleId];
+
+                        let backgroundStyle = '';
+                        if (colors.length > 0) {
+                            if (colors.length === 1) {
+                                backgroundStyle = `background-color: ${colors[0]}; color: ${getContrastColor(colors[0])};`;
+                            } else {
+                                backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color: ${getContrastColor(colors[0])};`;
+                            }
+                        }
+
+                        const messageHTML = `
+                            <div class="message-box" data-style-id="${styleId}" data-title="${title.toLowerCase()}" data-description="${description.toLowerCase()}" data-username="${username.toLowerCase()}" data-stylecode="${styleId.toLowerCase()}">
+                                <div class="theme-info">
+                                    <div class="title">${title}</div>
+                                    <div class="description">${description}</div>
+                                    <div class="createdby">Style Code: ${styleId}</div>
+                                </div>
+                                <div class="message" style="${backgroundStyle} ${fontFamily ? `font-family: ${fontFamily};` : ''}">
+                                    <div class="author">${username}</div>
+                                    <div class="content">${content}</div>
+                                    <div class="timestamp">${new Date().toLocaleString()}</div>
+                                </div>
+                                <div class="theme-info">
+                                    <div class="authorsname">Created by: ${username}</span></div>
+                                </div>
+                            </div>
+                        `;
+
+                        stylesContainer.innerHTML += messageHTML;
+                    });
+
+                    // Attach event listeners after messages are loaded
+                    attachInputListeners();
+                    attachSearchListener();
+                })
+                .catch(error => console.error('Error fetching styles:', error));
+        });
+
+        function attachInputListeners() {
+            // Event listeners for input fields
+            document.getElementById('usernameBar').addEventListener('input', updateMessages);
+            document.getElementById('contentBar').addEventListener('input', updateMessages);
+        }
+
+        function attachSearchListener() {
+            document.getElementById('searchBar').addEventListener('input', filterStyles);
+        }
+
+        function updateMessages() {
+            const usernameValue = document.getElementById('usernameBar').value.trim() || 'John Doe';
+            const contentValue = document.getElementById('contentBar').value.trim() || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
+            // Update all message elements
+            const messageBoxes = document.querySelectorAll('.message-box');
+
+            messageBoxes.forEach(box => {
+                const authorElement = box.querySelector('.author');
+                const contentElement = box.querySelector('.content');
+
+                const originalUsername = box.dataset.originalUsername;
+                const originalContent = box.dataset.originalContent;
+
+                if (authorElement && contentElement) {
+                    if (usernameValue === '') {
+                        authorElement.textContent = originalUsername;
+                    } else {
+                        authorElement.textContent = usernameValue;
+                    }
+
+                    if (contentValue === '') {
+                        contentElement.textContent = originalContent;
+                    } else {
+                        contentElement.textContent = contentValue;
+                    }
+                }
+            });
+        }
+
+        function filterStyles() {
+            const searchValue = document.getElementById('searchBar').value.trim().toLowerCase();
+            const messageBoxes = document.querySelectorAll('.message-box');
+
+            messageBoxes.forEach(box => {
+                const title = box.dataset.title;
+                const description = box.dataset.description;
+                const username = box.dataset.username;
+                const stylecode = box.dataset.stylecode;
+
+                if (title.includes(searchValue) || description.includes(searchValue) || username.includes(searchValue) || stylecode.includes(searchValue)) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        }
+
+        function setTheme(theme) {
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const themeButtons = document.querySelectorAll('.theme-button');
+
+            switch (theme) {
+                case 'dark':
+                    body.style.setProperty('--bg-color', '#333');
+                    body.style.setProperty('--text-color', '#fff');
+                    container.style.setProperty('--container-bg-color', '#111');
+                    break;
+                case 'light':
+                    body.style.setProperty('--bg-color', '#f0f0f0');
+                    body.style.setProperty('--text-color', '#333');
+                    container.style.setProperty('--container-bg-color', '#fff');
+                    break;
+                case 'pink':
+                    body.style.setProperty('--bg-color', '#ff69b4');
+                    body.style.setProperty('--text-color', '#fff');
+                    container.style.setProperty('--container-bg-color', '#ffadda');
+                    break;
+                default:
+                    body.style.setProperty('--bg-color', '#f0f0f0');
+                    body.style.setProperty('--text-color', '#333');
+                    container.style.setProperty('--container-bg-color', '#fff');
+                    break;
+            }
+
+            themeButtons.forEach(button => button.classList.remove('active'));
+            document.querySelector(`.theme-button.${theme}`).classList.add('active');
+
+            // Save theme to local storage
+            localStorage.setItem('theme', theme);
+        }
+
+        function getContrastColor(hexColor) {
+            // Convert hex color to RGB
+            const rgb = hexToRgb(hexColor);
+            if (!rgb) return '#000'; // Return black if invalid color
+
+            // Calculate the relative luminance
+            const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+
+            // Return white or black based on the luminance
+            return luminance > 0.5 ? '#000' : '#fff';
+        }
+
+        function hexToRgb(hex) {
+            // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+            const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+    </script>
+</body>
+
+</html>

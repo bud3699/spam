@@ -1,0 +1,38 @@
+
+.message {
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 10px auto;
+
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: rgba(21, 21, 22, 1);
+    color: white;
+}
+
+.author {
+    align-self: flex-start;
+    font-size: large;
+    font-size-adjust: initial + 5;
+    font-weight: bold;
+}
+
+.timestamp {
+    align-self: flex-end;
+    color: grey;
+    font-size: small;
+}
+
+.content {
+    text-align: center;
+    width: 80%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

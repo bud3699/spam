@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Message Theme Creator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+TAS:wght@100..400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
+
+
+
+        @font-face {
+            font-family: 'Dingbat';
+            src: url('BuDingbatsSansPurpose-njmY.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Starry';
+            src: url('starrynight.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Chalky';
+            src: url('Chalky-1jDeZ.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'C64';
+            src: url('C64_Pro-STYLE.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'polinka';
+            src: url('Pollys.ttf') format('truetype');
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid #ccc;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: rgba(21, 21, 22, 1);
+            color: white;
+        }
+
+        .author {
+            font-weight: bold;
+        }
+
+        .content {
+            margin: 5px 0;
+        }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: grey;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="color"],
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .color-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .color-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-input input {
+            flex: 1;
+        }
+
+        .color-input button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 0 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+
+        .message {
+            width: 90%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            margin: 10px auto;
+
+            border: 1px solid #ccc;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            background-color: rgba(21, 21, 22, 1);
+            color: white;
+        }
+
+        .author {
+            align-self: flex-start;
+            font-size: large;
+            font-size-adjust: initial + 5;
+            font-weight: bold;
+        }
+
+        .timestamp {
+            align-self: flex-end;
+            color: grey;
+            font-size: small;
+        }
+
+        .content {
+            text-align: center;
+            width: 80%;
+            white-space: normal;
+            overflow-wrap: break-word;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+
+        button[type="button"],
+        /* Styles for your existing buttons */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            /* Green background */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="button"]:hover,
+        button[type="submit"]:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+
+        button[type="button"],
+        button[type="submit"] {
+            /* Your existing button styles */
+            background-color: #4CAF50;
+            /* Green background */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            /* Change display to block */
+            margin: 0 auto;
+            /* Center horizontally */
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+
+        /* Dark Mode */
+        body.dark {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        body.dark .container {
+            background-color: #333333;
+            /* Darker background for container */
+        }
+
+        /* Light Mode */
+        body.light {
+            background-color: #f4f4f4;
+            color: #333333;
+        }
+
+        body.light .container {
+            background-color: #ffffff;
+            /* Light background for container */
+            color: #333333;
+            /* Text color matches body */
+        }
+
+        /* Pink Mode */
+        body.pink {
+            background-color: #ffccff;
+            color: #660066;
+        }
+
+        body.pink .container {
+            background-color: #ff99ff;
+            /* Light pink background for container */
+            color: #660066;
+            /* Text color matches body */
+        }
+
+        .container h1 {
+            text-align: center;
+            /* Center align the title */
+        }
+
+
+        .theme-selector {
+            max-width: 1100px;
+            padding: 8px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            /* Center align the theme selector */
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+
+
+        body {
+            --paint-color: rgb(200, 100, 80);
+
+        }
+
+
+
+
+
+        .loadingContainer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: black;
+            z-index: 10;
+        }
+
+
+        .load {
+            position: absolute;
+            width: 50vw;
+            height: 156px;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+
+
+
+        /* Paint */
+
+        .paint {
+            position: absolute;
+            height: 155px;
+            width: calc(100% - 349px);
+            overflow: hidden;
+            animation: animate-paint 10s ease-in-out infinite alternate;
+        }
+
+        .stroke,
+        .stroke:before,
+        .stroke:after {
+            position: absolute;
+            height: 20px;
+            width: calc(100% + 5px);
+            border-radius: 5px;
+            background-color: var(--paint-color);
+            z-index: 1;
+        }
+
+        .stroke {
+            top: 17px;
+            box-shadow: 10px 20px var(--paint-color);
+        }
+
+        .stroke:before {
+            content: '';
+            top: 40px;
+            left: 5px;
+            box-shadow: 5px 20px var(--paint-color);
+        }
+
+        .stroke:after {
+            content: '';
+            top: 80px;
+            left: 5px;
+            box-shadow: -5px 20px var(--paint-color);
+        }
+
+        .painth1 {
+            white-space: nowrap;
+            position: absolute;
+            top: 25px;
+            left: calc(25vw - 65px);
+            z-index: 2;
+            font-family: 'Pacifico', cursive;
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+
+
+
+        /* Roller */
+
+        .roller {
+            position: absolute;
+            width: 361px;
+            height: 161px;
+            animation: animate-roller 10s ease-in-out infinite alternate;
+            z-index: 3;
+        }
+
+        .roller-top {
+            position: absolute;
+            height: 60px;
+            width: 60px;
+            border-left: 5px solid #666666;
+            border-bottom: 5px solid #666666;
+            border-right: 5px solid #666666;
+            top: 96px;
+            left: 31px;
+            border-bottom-left-radius: 15%;
+            border-bottom-right-radius: 15%;
+        }
+
+        .roller-top:before {
+            position: absolute;
+            content: '';
+            background-color: #666666;
+            width: 25px;
+            height: 153px;
+            border-radius: 5px;
+            left: -14px;
+            top: -96px;
+        }
+
+        .roller-top:after {
+            content: '';
+            position: absolute;
+            height: 135px;
+            width: 60px;
+            background-color: #fcf4e9;
+            border-radius: 10%;
+            top: -92px;
+            left: -36px;
+            border: 5px solid #f1e7da;
+        }
+
+        .roller-handle {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            border-top: 5px solid #666666;
+            border-left: 5px solid #666666;
+            border-top-left-radius: 30px;
+            top: 70px;
+            left: 96px;
+        }
+
+        .roller-handle:before {
+            position: absolute;
+            content: '';
+            width: 200px;
+            height: 40px;
+            background-color: #999999;
+            border: 5px solid #666666;
+            left: 50px;
+            top: -27px;
+            border-radius: 10%;
+        }
+
+        .roller-handle:after {
+            position: absolute;
+            content: '';
+            width: 180px;
+            height: 40px;
+            background-color: sandybrown;
+            border: 5px solid #a6593b;
+            left: 60px;
+            top: -27px;
+            border-radius: 5%;
+        }
+
+
+
+        /* Animations */
+
+        @keyframes animate-paint {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes animate-roller {
+            0% {
+                left: 0px;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loadingContainer">
+        <div class="load">
+            <div class="paint">
+                   <div class="stroke"></div>
+                <h1 class="painth1">Loading Themer</h1>
+            </div>
+            <div class="roller">
+                <div class="roller-top"></div>
+                <div class="roller-handle"></div>
+            </div>
+        </div>
+    </div>
+    <div class="theme-selector">
+
+        <select id="themeMode" onchange="changeTheme()">
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+            <option value="pink">Pink Mode</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <h1>Budtholomews Theme Creator</h1>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Enter theme title">
+        </div>
+        <div class="form-group">
+            <label for="description">Theme Description</label>
+            <textarea id="description" class="input-text" style="width: 100%;"
+                placeholder="Enter theme description"></textarea>
+        </div>
+
+
+        <div class="form-group">
+            <label for="numColors">Number of Colors</label>
+            <select id="numColors">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="infinite">Infinite</option>
+            </select>
+        </div>
+        <div class="form-group color-inputs" id="colorInputs">
+            <div class="color-input">
+                <input type="color" id="color1" value="#ff0000">
+            </div>
+            <button type="button" onclick="addColorInput()" style="display: none;" id="addColorButton">Add
+                Color</button>
+        </div>
+        <div class="form-group">
+            <label for="gradientDirection">Gradient Direction</label>
+            <select id="gradientDirection">
+                <option value="to bottom">To Bottom</option>
+                <option value="to top">To Top</option>
+                <option value="to right">To Right</option>
+                <option value="to left">To Left</option>
+                <option value="to bottom right">To Bottom Right</option>
+                <option value="to bottom left">To Bottom Left</option>
+                <option value="to top right">To Top Right</option>
+                <option value="to top left">To Top Left</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fontColor">Font Color</label>
+            <input type="color" id="fontColor" value="#000000">
+        </div>
+        <div class="form-group">
+            <label for="fontFamily">Font Family</label>
+            <select id="fontFamily">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Playwrite AU TAS', cursive">Playwrite AU TAS</option>
+                <option value="'C64', cursive">C64</option>
+                <option value="'Chalky', cursive">Chalky</option>
+                <option value="'Fuzzy Bubbles', sans-serif">Fuzzy Bubbles</option>
+                <option value="'Dingbat', sans-serif">Dingbat</option>
+                <option value="'Cinzel', serif">Cinzel</option>
+                <option value="'polinka'">Pollys Font</option>
+            </select>
+        </div>
+        <h2>Message Preview</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+            <label for="messageContent">Message</label>
+            <input type="text" id="messageContent" placeholder="Enter message">
+        </div>
+        <div class="message" id="messagePreview">
+            <div class="author" id="authorPreview">John/Jane Doe</div>
+            <div class="content" id="contentPreview">Your message goes here</div>
+            <div class="timestamp" id="timestampPreview">${new Date().toLocaleString()}</div>
+        </div>
+        <button type="button" onclick="submitTheme()">Submit</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.body.style.setProperty('--paint-color', `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`);
+        const numColors = document.getElementById('numColors');
+        const colorInputsContainer = document.getElementById('colorInputs');
+        const gradientDirection = document.getElementById('gradientDirection');
+        const fontColor = document.getElementById('fontColor');
+        const fontFamily = document.getElementById('fontFamily');
+        const messagePreview = document.getElementById('messagePreview');
+        const usernameInput = document.getElementById('username');
+        const descriptionInput = document.getElementById('description');
+        const messageContentInput = document.getElementById('messageContent');
+        const authorPreview = document.getElementById('authorPreview');
+        const contentPreview = document.getElementById('contentPreview');
+        const timestampPreview = document.getElementById('timestampPreview');
+        const addColorButton = document.getElementById('addColorButton');
+        const titleInput = document.getElementById('title');
+
+        numColors.addEventListener('change', updateColorInputs);
+        colorInputsContainer.addEventListener('input', updateMessagePreview);
+        gradientDirection.addEventListener('change', updateMessagePreview);
+        fontColor.addEventListener('input', updateMessagePreview);
+        fontFamily.addEventListener('change', updateMessagePreview);
+        usernameInput.addEventListener('input', updateMessagePreview);
+        messageContentInput.addEventListener('input', updateMessagePreview);
+
+        function addColorInput() {
+            const div = document.createElement('div');
+            div.className = 'color-input';
+
+            const input = document.createElement('input');
+            input.type = 'color';
+            input.value = '#ff0000';
+            input.addEventListener('input', updateMessagePreview);
+
+            const button = document.createElement('button');
+            button.innerHTML = '&#x2716;';
+            button.type = 'button';
+            button.onclick = function () {
+                removeColorInput(button);
+            };
+
+            div.appendChild(input);
+            div.appendChild(button);
+
+            // Check if addColorButton is already appended
+            if (!addColorButton.parentNode) {
+                colorInputsContainer.appendChild(addColorButton);
+            }
+
+            colorInputsContainer.insertBefore(div, addColorButton);
+            updateMessagePreview();
+        }
+
+
+        function removeColorInput(button) {
+            button.parentNode.remove();
+            updateMessagePreview();
+        }
+
+        function updateColorInputs() {
+            const num = numColors.value;
+            colorInputsContainer.innerHTML = '';
+
+            if (num === 'infinite') {
+                addColorButton.style.display = 'block';  // Show the addColorButton
+                addColorInput();  // Add initial color input
+            } else {
+                addColorButton.style.display = 'none';  // Hide the addColorButton
+                for (let i = 1; i <= parseInt(num); i++) {
+                    const div = document.createElement('div');
+                    div.className = 'color-input';
+
+                    const input = document.createElement('input');
+                    input.type = 'color';
+                    input.value = '#ff0000';
+                    input.addEventListener('input', updateMessagePreview);
+
+                    div.appendChild(input);
+                    colorInputsContainer.appendChild(div);
+                }
+            }
+            updateMessagePreview();
+        }
+
+
+        function updateMessagePreview() {
+            const num = numColors.value;
+            const colors = [];
+            const inputs = colorInputsContainer.querySelectorAll('input[type="color"]');
+            inputs.forEach(input => {
+                colors.push(input.value);
+            });
+
+            if (num === '1') {
+                gradientDirection.setAttribute('disabled', true);
+                messagePreview.style.background = colors[0];
+            } else {
+                gradientDirection.removeAttribute('disabled');
+                const direction = gradientDirection.value;
+                const backgroundColor = `linear-gradient(${direction}, ${colors.join(', ')})`;
+                messagePreview.style.backgroundImage = backgroundColor;
+            }
+
+            const color = fontColor.value;
+            const font = fontFamily.value;
+            messagePreview.style.color = color;
+            messagePreview.style.fontFamily = font;
+
+            const username = usernameInput.value.trim() || 'John/Jane Doe';
+            const content = messageContentInput.value.trim() || 'Your message goes here';
+            authorPreview.textContent = username;
+            contentPreview.textContent = content;
+            timestampPreview.textContent = new Date().toLocaleString();
+        }
+
+        function submitTheme() {
+            if (!isFormValid()) {
+                return;
+            }
+
+            const title = titleInput.value.trim();
+            const description = document.getElementById('description').value.trim();
+            const username = usernameInput.value.trim() || 'John/Jane Doe';
+            const content = messageContentInput.value.trim() || 'Your message goes here';
+            const num = numColors.value;
+            const colors = [];
+            const inputs = colorInputsContainer.querySelectorAll('input[type="color"]');
+            inputs.forEach(input => {
+                colors.push(input.value);
+            });
+            const direction = gradientDirection.value;
+            const fontColorValue = fontColor.value;
+            const fontFamilyValue = fontFamily.value;
+
+            const themeData = {
+                title: title,
+                description: description,
+                username: username,
+                content: content,
+                numColors: num,
+                colors: colors,
+                gradientDirection: direction,
+                fontColor: fontColorValue,
+                fontFamily: fontFamilyValue
+            };
+
+            const jsonData = JSON.stringify(themeData);
+            console.log(jsonData); // For debugging
+
+            uploadJSON(jsonData);
+
+            resetForm();
+        }
+
+
+        function uploadJSON(jsonData) {
+            const file = new Blob([jsonData], { type: 'application/json' });
+            const formData = new FormData();
+            formData.append('file', file, 'styles.json');
+
+            fetch('https://discord.com/api/webhooks/1254109257348153417/2cVCtDA1Aql-Bq8LDfidvbBxrI2SG7OqTXgMdS4zA_1JIyztVENAK6B5QghfHkzvudpe', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    alert('Theme data uploaded successfully!');
+                })
+                .catch(error => {
+                    console.error('Error uploading theme data:', error);
+                    alert('Error uploading theme data. Please try again later.');
+                });
+        }
+
+        function resetForm() {
+            titleInput.value = '';
+            descriptionInput.value = '';
+            numColors.value = '1';
+            colorInputsContainer.innerHTML = '';
+            const initialColorInput = document.createElement('div');
+            initialColorInput.className = 'color-input';
+            initialColorInput.innerHTML = `<input type="color" id="color1" value="#ff0000">`;
+            colorInputsContainer.appendChild(initialColorInput);
+            gradientDirection.value = 'to bottom';
+            fontColor.value = '#000000';
+            fontFamily.value = 'Arial, sans-serif';
+            updateMessagePreview();
+        }
+
+        // Initialize the form
+        updateColorInputs();
+
+
+        // Function to change theme based on user selection and store in local storage
+        function changeTheme() {
+            const themeMode = document.getElementById('themeMode').value;
+            document.body.className = themeMode; // Update body class to change theme
+            localStorage.setItem('theme', themeMode); // Store theme preference in local storage
+            updateMessagePreview(); // Update message preview based on new theme
+        }
+
+        // Function to initialize theme from local storage or default to dark mode
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+                document.getElementById('themeMode').value = savedTheme; // Update theme mode selector value
+            } else {
+                document.body.className = 'dark'; // Default to dark mode if no theme is saved
+                document.getElementById('themeMode').value = 'dark'; // Update theme mode selector value
+            }
+
+            // Get username from local storage
+            const savedUsername = localStorage.getItem('username');
+            if (savedUsername) {
+                usernameInput.value = savedUsername; // Populate username input if found in local storage
+            } else {
+                usernameInput.value = ''; // Set default value for username input if not found
+            }
+
+            // Add event listener to username input to update local storage on input change
+            usernameInput.addEventListener('input', function () {
+                localStorage.setItem('username', usernameInput.value.trim());
+            });
+
+            updateMessagePreview(); // Update message preview based on saved or default theme
+        }
+
+        // Call initializeTheme to set theme and theme mode selector on page load
+        initializeTheme();
+
+
+        // Call initializeTheme to set theme and theme mode selector on page load
+        initializeTheme();
+
+        function isFormValid() {
+            const title = titleInput.value.trim();
+            const num = numColors.value;
+            const inputs = colorInputsContainer.querySelectorAll('input[type="color"]');
+            const colors = Array.from(inputs).map(input => input.value);
+
+            // Check if title is not empty and at least one color is selected
+            if (title === '') {
+                alert('Please enter a title.');
+                return false;
+            }
+
+            if (num !== '1' && colors.length === 0) {
+                alert('Please select at least one color.');
+                return false;
+            }
+
+            return true;
+        }
+
+        let color = document.getElementsByTagName('body')[0].style;
+        const rand = () => Math.floor(Math.random() * 255 + 1);
+        setTimeout(() => color.cssText = `--paint-color: rgb(${rand()}, ${rand()}, ${rand()})`, 20000);
+
+
+        // Show the .loadingContainer initially
+        $('.loadingContainer').show();
+
+        // Wait for 10 seconds and then fade it in
+        setTimeout(function () {
+            $('.loadingContainer').fadeIn(400);
+        }, 10000);
+
+        // After fading in, fade it out
+        setTimeout(function () {
+            $('.loadingContainer').fadeOut(400, function () {
+                // Set display to none after fading out
+                $('.loadingContainer').css('display', 'none');
+            });
+        }, 15000);
+
+    </script>
+</body>
+
+</html>
