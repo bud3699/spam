@@ -463,9 +463,11 @@
                         let backgroundStyle = '';
                         if (colors.length > 0) {
                             if (colors.length === 1) {
-                                backgroundStyle = `background-color: ${colors[0]}; color: ${getContrastColor(colors[0])};`;
+                                //backgroundStyle = `background-color: ${colors[0]}; color: ${getContrastColor(colors[0])};`;
+                                backgroundStyle = `background-color: ${colors[0]}; color: ${fontColor};`;
                             } else {
-                                backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color: ${getContrastColor(colors[0])};`;
+                                //backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color: ${getContrastColor(colors[0])};`;
+                                backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color:${fontColor};`;
                             }
                         }
 
