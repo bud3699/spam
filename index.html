@@ -315,9 +315,11 @@
                     placeholder="Enter your style code">
                 <div style="display: flex; justify-content: center;">
                     <input type="styles" value="View Styles" readonly
-                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;"onclick="window.open('/spam/styles/', '_blank');">
+                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;"
+                        onclick="window.open('/spam/styles/', '_blank');">
                     <input type="refresh" value="Refresh Styles" readonly
-                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;", onclick="fetchStyles();">
+                        style="max-width: 100px; height: 30px; margin-left: 10px; margin-right: 10px; text-align: center;"
+                        , onclick="fetchStyles();">
                 </div>
 
                 <!--<h2 id="advert"> cool feature coming soon</h2>-->
@@ -378,6 +380,18 @@
 
     let allStyles = [];
     fetchStyles();
+    let GlobalMessages = "http://budstesting.rf.gd/store/spam_messages.json";
+
+    var username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('username').value = username;
+    }
+    if (username === 'lauren') {
+        console.log("here")
+        GlobalMessages = "None"
+        alert("An error occured")
+        window.stop();
+    }
 
 
     window.onload = function () {
@@ -573,7 +587,7 @@
     }
 
     function fetchMessages() {
-        var url = "http://budstesting.rf.gd/store/spam_messages.json";
+        var url = GlobalMessages
         var corsProxy = "https://corsproxy.io/?";
 
         url += "?t=" + new Date().getTime();
@@ -590,7 +604,7 @@
     }
 
     var lastDisplayedTimestamp = 0;
-    let MessageLimit = 5
+    let MessageLimit = 2 //5
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
@@ -732,8 +746,22 @@
                         contentDiv.style.margin = "10px"
                     }
 
+
+                    // if the message is equal to !style=! then
+
+                    //!style=1254913142790553773!
+                    let temp;
+
+                    if (message.content.includes('!style=!')) {
+                        // if it equals to the string (aka doesnt have style) set variable
+                        temp = message.content.replace('!style=!', '');
+                    } else {
+                        // it didnt match the string then it has a style number
+                        temp = message.content.replace(/!style=\w+!$/, '');
+                    }
+
                     contentDiv.className = "content";
-                    contentDiv.textContent = message.content.replace(/!style=\w+!$/, '');
+                    contentDiv.textContent = temp;
                     messageDiv.appendChild(contentDiv);
 
                     var timestampDiv = document.createElement("div");
@@ -820,10 +848,7 @@
         return div;
     }
 
-    var username = localStorage.getItem('username');
-    if (username) {
-        document.getElementById('username').value = username;
-    }
+
     var pfp = localStorage.getItem('pfp');
     if (pfp) {
         var pfpImg = document.getElementById('imagePreview');
@@ -1036,7 +1061,7 @@
             backgroundColor: style.colors.length === 1 ? style.colors[0] : '',
             color: style.fontColor,
             fontFamily: style.fontFamily,
-            fontSize: style.fontSize || '' 
+            fontSize: style.fontSize || ''
         };
     }
 
@@ -1098,6 +1123,8 @@
             // styles = applyStylesFromCode(StyleCode) || 
             localStorage.setItem('MessageStyle', StyleCode);
         }
+
+
 
         const messageHTML = `
         <div class="message" style="animation: none; ${styles.backgroundImage ? `background-image: ${styles.backgroundImage};` : ''} ${styles.backgroundColor ? `background-color: ${styles.backgroundColor};` : ''} ${styles.color ? `color: ${styles.color};` : ''} ${styles.fontFamily ? `font-family: ${styles.fontFamily};` : ''} ${styles.fontSize ? `font-size: ${styles.fontSize};` : ''}">
