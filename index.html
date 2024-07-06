@@ -518,7 +518,7 @@
         fetch(corsProxy + url)
             .then(response => response.json())
             .then(data => {
-                //delete data["polinka"];
+                delete data["polinka"];
                 var entries = Object.entries(data);
                 entries.sort((a, b) => b[1] - a[1]);
 
@@ -597,14 +597,14 @@
             .then(data => {
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
-                //var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
+                var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
                 displayMessages(parsedMessages);
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
 
     var lastDisplayedTimestamp = 0;
-    let MessageLimit = 2 //5
+    let MessageLimit = 1 //5
 
     function displayMessages(messages) {
         var messageEntries = document.getElementById("messageEntries");
