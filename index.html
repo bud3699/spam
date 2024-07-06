@@ -598,7 +598,7 @@
                 var messages = data.trim().split('\n');
                 var parsedMessages = messages.map(message => JSON.parse(message));
                 var filteredMessages = parsedMessages.filter(message => message.author !== "polinka");
-                displayMessages(parsedMessages);
+                displayMessages(filteredMessages);
             })
             .catch(error => console.error('Error fetching messages:', error));
     }
