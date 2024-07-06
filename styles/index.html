@@ -470,18 +470,25 @@
                                 backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color:${fontColor};`;
                             }
                         }
-                        let usernameStr;
-                        if (username === "polinka") {
-                            usernameStr = "User Removed";
-                        } else {
-                            usernameStr = username;
+                        const blockedNames = ["Polly's", "polly's", "polinka", "Polinka"];
+                        let usernameStr = username;
+                        let titleStr = title;
+                        let descriptionStr = description;
+
+                        for (const blockedName of blockedNames) {
+
+                            titleStr = titleStr.replace(new RegExp(blockedName, 'gi'), 'Username deleted');
+                            descriptionStr = descriptionStr.replace(new RegExp(blockedName, 'gi'), 'Username deleted');
+                            usernameStr = usernameStr.replace(new RegExp(blockedName, 'gi'), 'Username deleted');
                         }
+
+
 
                         const messageHTML = `
                             <div class="message-box" data-style-id="${styleId}" data-title="${title.toLowerCase()}" data-description="${description.toLowerCase()}" data-username="${username.toLowerCase()}" data-stylecode="${styleId.toLowerCase()}">
                                 <div class="theme-info">
-                                    <div class="title">${title}</div>
-                                    <div class="description">${description}</div>
+                                    <div class="title">${titleStr}</div>
+                                    <div class="description">${descriptionStr}</div>
                                     <div class="createdby">Style Code: ${styleId}</div>
                                 </div>
                                 <div class="message" style="${backgroundStyle} ${fontFamily ? `font-family: ${fontFamily};` : ''}">
