@@ -470,6 +470,12 @@
                                 backgroundStyle = `background: linear-gradient(${data[styleId].gradientDirection}, ${colors.join(', ')}); color:${fontColor};`;
                             }
                         }
+                        let usernameStr;
+                        if (username === "polinka") {
+                            usernameStr = "User Removed";
+                        } else {
+                            usernameStr = username;
+                        }
 
                         const messageHTML = `
                             <div class="message-box" data-style-id="${styleId}" data-title="${title.toLowerCase()}" data-description="${description.toLowerCase()}" data-username="${username.toLowerCase()}" data-stylecode="${styleId.toLowerCase()}">
@@ -479,12 +485,12 @@
                                     <div class="createdby">Style Code: ${styleId}</div>
                                 </div>
                                 <div class="message" style="${backgroundStyle} ${fontFamily ? `font-family: ${fontFamily};` : ''}">
-                                    <div class="author">${username}</div>
+                                    <div class="author">${usernameStr}</div>
                                     <div class="content">${content}</div>
                                     <div class="timestamp">${new Date().toLocaleString()}</div>
                                 </div>
                                 <div class="theme-info">
-                                    <div class="authorsname">Created by: ${username}</span></div>
+                                    <div class="authorsname">Created by: ${usernameStr}</span></div>
                                 </div>
                             </div>
                         `;
